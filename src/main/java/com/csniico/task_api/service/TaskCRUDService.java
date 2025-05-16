@@ -3,8 +3,13 @@ package com.csniico.task_api.service;
 import com.csniico.task_api.Entity.Task;
 import com.csniico.task_api.Repository.TaskRepository;
 import com.csniico.task_api.dto.TaskRequest;
+import com.csniico.task_api.dto.TaskResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskCRUDService {
@@ -79,4 +84,41 @@ public class TaskCRUDService {
             return false;
         }
     }
+
+    public List<TaskResponse> getAllTasks() {
+        try {
+            List<Task> tasks = taskRepository.findAll();
+            return tasks.stream()
+                    .map(this::mapToTaskResponse)
+                    .collect(Collectors.toList());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return Collections.emptyList();
+        }
+    }
+
+    public TaskResponse getTaskById(int id) {
+        try {
+            Task task = taskRepository.findById((long) id).orElse(null);
+            if (task != null) {
+                return mapToTaskResponse(task);
+            }
+            return null;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+    }
+
+    private TaskResponse mapToTaskResponse(Task task) {
+        TaskResponse response = new TaskResponse();
+        response.setId(task.getId().intValue());
+        response.setTitle(task.getTitle());
+        response.setDescription(task.getDescription());
+        response.setStatus(task.getStatus());
+        response.setPriority(task.getPriority());
+        response.setAssignedTo(task.getAssignedTo());
+        return response;
+    }
+
 }
