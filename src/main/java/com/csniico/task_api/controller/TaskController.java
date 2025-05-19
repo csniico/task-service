@@ -5,10 +5,7 @@ import com.csniico.task_api.dto.TaskResponse;
 import com.csniico.task_api.service.TaskCRUDService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,5 +31,12 @@ public class TaskController {
             return ResponseEntity.ok(response);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<ApiResponse<List<TaskResponse>>> getTasksByUser(@RequestParam String email) {
+        List<TaskResponse> tasks = taskCRUDService.getTasksByUser(email);
+        ApiResponse<List<TaskResponse>> response = new ApiResponse<>("Tasks retrieved successfully", tasks);
+        return ResponseEntity.ok(response);
     }
 }

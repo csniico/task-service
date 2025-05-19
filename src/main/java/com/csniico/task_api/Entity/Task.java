@@ -27,4 +27,10 @@ public class Task {
 
     @Column(name = "assigned_to")
     private String[] assignedTo;
+
+    @Column(name = "due_date")
+    private String dueDate;
+
+    @Column(name = "category")
+    private String category;
 }
