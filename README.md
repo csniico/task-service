@@ -28,7 +28,9 @@ Creates a new task in the system.
   "description": "Write comprehensive documentation for the API project",
   "status": "In Progress",
   "priority": "High",
-  "assignedTo": ["John Doe", "Jane Smith"]
+  "assignedTo": ["John_Doe:johndoe@email.com", "Jane_Smith:janesmith@email.com"],
+  "dueDate": "Sunday, 21st May 2025",
+  "category": "category"
 }
 ````
 
@@ -58,26 +60,28 @@ Retrieves a list of all existing tasks.
 
 * **URL**: `/tasks`
 * **Method**: `GET`
-* **Success Response**:
+  * **Success Response**:
 
-    * **Status Code**: `200 OK`
-    * **Body**:
+      * **Status Code**: `200 OK`
+        * **Body**:
 
-      ```json
-      {
-        "message": "Tasks retrieved successfully",
-        "data": [
+          ```json
           {
-            "id": 1,
-            "title": "Complete Project Documentation",
-            "description": "Write comprehensive documentation for the API project",
-            "status": "In Progress",
-            "priority": "High",
-            "assignedTo": ["John Doe", "Jane Smith"]
+            "message": "Tasks retrieved successfully",
+            "data": [
+              {
+                "id": 1,
+                "title": "Complete Project Documentation",
+                "description": "Write comprehensive documentation for the API project",
+                "status": "In Progress",
+                "priority": "High",
+                  "assignedTo": ["John_Doe:johndoe@email.com", "Jane_Smith:janesmith@email.com"],
+                  "dueDate": "Sunday, 21st May 2025",
+                  "category": "category"
+              }
+            ]
           }
-        ]
-      }
-      ```
+          ```
 
 ---
 
@@ -90,24 +94,26 @@ Fetches the details of a specific task by its unique ID.
 * **URL Parameters**:
 
     * `id` (integer, required): The ID of the task to retrieve.
-* **Success Response**:
+      * **Success Response**:
 
-    * **Status Code**: `200 OK`
-    * **Body**:
+          * **Status Code**: `200 OK`
+            * **Body**:
 
-      ```json
-      {
-        "message": "Task retrieved successfully",
-        "data": {
-          "id": 1,
-          "title": "Complete Project Documentation",
-          "description": "Write comprehensive documentation for the API project",
-          "status": "In Progress",
-          "priority": "High",
-          "assignedTo": ["John Doe", "Jane Smith"]
-        }
-      }
-      ```
+              ```json
+              {
+                "message": "Task retrieved successfully",
+                "data": {
+                  "id": 1,
+                  "title": "Complete Project Documentation",
+                  "description": "Write comprehensive documentation for the API project",
+                  "status": "In Progress",
+                  "priority": "High",
+                  "assignedTo": ["John_Doe:johndoe@email.com", "Jane_Smith:janesmith@email.com"],
+                  "dueDate": "Sunday, 21st May 2025",
+                  "category": "category"
+                }
+              }
+              ```
 * **Error Response**:
 
     * **Status Code**: `404 Not Found`
@@ -117,6 +123,45 @@ Fetches the details of a specific task by its unique ID.
       "Task not found."
       ```
 
+---
+
+### Get Task by user email
+
+Fetches the lists of tasks assigned to a specific user, by their email
+
+* **URL**: `/tasks/?email=johndoe@email.com`
+* **Method**: `GET`
+* **URL Parameters**:
+
+    * `email` (string, required): The email of the user.
+        * **Success Response**:
+
+            * **Status Code**: `200 OK`
+                * **Body**:
+
+                  ```json
+                  {
+                    "message": "Task retrieved successfully",
+                    "data": [{
+                      "id": 1,
+                      "title": "Complete Project Documentation",
+                      "description": "Write comprehensive documentation for the API project",
+                      "status": "In Progress",
+                      "priority": "High",
+                      "assignedTo": ["John_Doe:johndoe@email.com", "Jane_Smith:janesmith@email.com"],
+                      "dueDate": "Sunday, 21st May 2025",
+                      "category": "category"
+                    }]
+                  }
+                  ```
+* **Error Response**:
+
+    * **Status Code**: `404 Not Found`
+    * **Body**:
+
+      ```json
+      "Task not found."
+      ```
 ---
 
 ### Update Task

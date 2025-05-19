@@ -12,4 +12,6 @@ public class TaskResponse {
     private String status;
     private String priority;
     private String[] assignedTo;
+    private String dueDate;
+    private String category;
 }

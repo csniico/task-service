@@ -7,6 +7,7 @@ import com.csniico.task_api.dto.TaskResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +30,8 @@ public class TaskCRUDService {
             task.setStatus(taskRequest.getStatus());
             task.setPriority(taskRequest.getPriority());
             task.setAssignedTo(taskRequest.getAssignedTo());
+            task.setDueDate(taskRequest.getDueDate());
+            task.setCategory(taskRequest.getCategory());
             taskRepository.save(task);
             return true;
         } catch (Exception ex) {
@@ -46,6 +49,8 @@ public class TaskCRUDService {
                 task.setStatus(taskRequest.getStatus());
                 task.setPriority(taskRequest.getPriority());
                 task.setAssignedTo(taskRequest.getAssignedTo());
+                task.setDueDate(taskRequest.getDueDate());
+                task.setCategory(taskRequest.getCategory());
                 taskRepository.save(task);
                 return true;
             }
@@ -97,6 +102,20 @@ public class TaskCRUDService {
         }
     }
 
+    public List<TaskResponse> getTasksByUser(String email) {
+        try {
+            List<Task> tasks = taskRepository.findAll();
+            return tasks.stream()
+                    .filter(task -> Arrays.stream(task.getAssignedTo())
+                          .anyMatch(entry -> entry.split(":")[1].equals(email)))
+                    .map(this::mapToTaskResponse)
+                    .collect(Collectors.toList());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return Collections.emptyList();
+        }
+    }
+
     public TaskResponse getTaskById(int id) {
         try {
             Task task = taskRepository.findById((long) id).orElse(null);
@@ -118,6 +137,8 @@ public class TaskCRUDService {
         response.setStatus(task.getStatus());
         response.setPriority(task.getPriority());
         response.setAssignedTo(task.getAssignedTo());
+        response.setDueDate(task.getDueDate());
+        response.setCategory(task.getCategory());
         return response;
     }
 
