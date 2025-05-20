@@ -40,9 +40,9 @@ public class TaskCRUDService {
         }
     }
 
-    public boolean updateTask(TaskRequest taskRequest) {
+    public boolean updateTask(TaskRequest taskRequest, int id) {
         try {
-            Task task = taskRepository.findById((long) taskRequest.getId()).orElse(null);
+            Task task = taskRepository.findById((long) id).orElse(null);
             if (task != null) {
                 task.setTitle(taskRequest.getTitle());
                 task.setDescription(taskRequest.getDescription());

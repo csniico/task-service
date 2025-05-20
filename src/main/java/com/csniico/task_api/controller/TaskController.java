@@ -1,6 +1,7 @@
 package com.csniico.task_api.controller;
 
 import com.csniico.task_api.dto.ApiResponse;
+import com.csniico.task_api.dto.TaskRequest;
 import com.csniico.task_api.dto.TaskResponse;
 import com.csniico.task_api.service.TaskCRUDService;
 import lombok.RequiredArgsConstructor;
@@ -39,4 +40,26 @@ public class TaskController {
         ApiResponse<List<TaskResponse>> response = new ApiResponse<>("Tasks retrieved successfully", tasks);
         return ResponseEntity.ok(response);
     }
+
+    @PatchMapping
+    public ResponseEntity<ApiResponse<String>> markTaskAsCompleted(@RequestParam int id) {
+        boolean success = taskCRUDService.markAsCompleted(id);
+        if (success) {
+            ApiResponse<String> response = new ApiResponse<>("Task marked as completed successfully", null);
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping
+    public ResponseEntity<ApiResponse<String>> updateTask(@RequestBody TaskRequest taskRequest, @RequestParam int id) {
+        boolean success = taskCRUDService.updateTask(taskRequest, id);
+        if (success) {
+            ApiResponse<String> response = new ApiResponse<>("Task updated successfully", null);
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+
 }
