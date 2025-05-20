@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+docker build -t chrisncs/task-api:1.2 .
+docker build -t chrisncs/task-api:latest .
+
+docker push chrisncs/task-api:1.2
+docker push chrisncs/task-api:latest
