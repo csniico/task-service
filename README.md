@@ -168,7 +168,7 @@ Fetches the lists of tasks assigned to a specific user, by their email
 
 Updates the details of an existing task.
 
-* **URL**: `/update`
+* **URL**: `/?id=${taskId}`
 * **Method**: `PUT`
 * **Request Headers**: `Content-Type: application/json`
 * **Request Body**:
@@ -240,7 +240,7 @@ Deletes a task by its ID.
 
 Marks an existing task as completed.
 
-* **URL**: `/complete/{id}`
+* **URL**: `/?id=${taskId}`
 
 * **Method**: `PATCH`
 
