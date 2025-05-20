@@ -75,11 +75,11 @@ public class TaskCRUDService {
         }
     }
 
-    public boolean markAsCompleted(int id) {
+    public boolean updateTaskStatus(int id, String status) {
         try {
             Task task = taskRepository.findById((long) id).orElse(null);
             if (task != null) {
-                task.setStatus("Completed");
+                task.setStatus(status);
                 taskRepository.save(task);
                 return true;
             }
