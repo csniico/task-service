@@ -208,7 +208,7 @@ Updates the details of an existing task.
 
 Deletes a task by its ID.
 
-* **URL**: `/delete/{id}`
+* **URL**: `/?id={id}`
 
 * **Method**: `DELETE`
 

@@ -61,5 +61,13 @@ public class TaskController {
         return ResponseEntity.notFound().build();
     }
 
-
+    @DeleteMapping
+    public ResponseEntity<ApiResponse<String>> deleteTask(@RequestParam int id) {
+        boolean success = taskCRUDService.deleteTask(id);
+        if (success) {
+            ApiResponse<String> response = new ApiResponse<>("Task deleted successfully", null);
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
