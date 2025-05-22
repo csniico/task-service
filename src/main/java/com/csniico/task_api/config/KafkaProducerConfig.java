@@ -8,7 +8,12 @@ import org.springframework.context.annotation.Configuration;
 public class KafkaProducerConfig {
 
     @Bean
-    public NewTopic createTopic() {
+    public NewTopic taskCreatedTopic() {
         return new NewTopic("task.created", 3, (short) 1);
+    }
+
+    @Bean
+    public NewTopic taskUpdatedTopic() {
+        return new NewTopic("task.updated", 3, (short) 1);
     }
 }
