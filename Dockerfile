@@ -16,7 +16,6 @@ RUN wget https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21
 
 WORKDIR /app
 
-# Download the OpenTelemetry Java agent
 RUN wget https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v2.16.0/opentelemetry-javaagent.jar \
     -O /app/opentelemetry-javaagent.jar
 
